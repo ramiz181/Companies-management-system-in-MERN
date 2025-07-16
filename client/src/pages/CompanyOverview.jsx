@@ -1,9 +1,12 @@
-import React from 'react'
+
+import CompaniesHeader from '../components/CompaniesHeader'
+import CompaniesTab from '../components/CompaniesTab'
 
 export default function CompanyOverview() {
     return (
         <div>
-            <h1>This is company overview page</h1>
+            <CompaniesHeader />
+            <CompaniesTab />
         </div>
     )
 }

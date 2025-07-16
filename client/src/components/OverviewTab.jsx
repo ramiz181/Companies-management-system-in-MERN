@@ -1,19 +1,35 @@
 
+import MyImage from './../assets/img/PayPal.png'
+
+import Calendar from 'react-calendar';
+
+import { UserPlus, DollarSignIcon, LineChart, CalendarDaysIcon, CreditCard } from 'lucide-react';
+import PayrollGraph from './PayrollGraph';
+import { payrollIncrement } from '../Data/Data';
+import CompaniesGraph from './CompaniesGraph';
+import { useState } from 'react'
 
 
 
-export default function Test() {
+export default function OverviewTab() {
+
+
+    const date = new Date();
+
+    const day = date.getDate();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+
+    const formattedDate = `${day.toString().padStart(2, '0')}-${month.toString().padStart(2, '0')}-${year}`;
+
+
+    const [calendarDate, setCalendarDate] = useState(new Date());
 
 
     return (
         <div>
             {/* Main Content */}
             <main className="flex-1 p-6">
-                {/* Header */}
-                
-
-
-
 
                 {/* Grid Layout */}
 
@@ -45,11 +61,6 @@ export default function Test() {
                         </div>
 
 
-                        {/* <div className="bg-green-100 p-3 rounded-lg mt-4">
-                            <p className="text-sm font-medium">Review resume</p>
-                            <p className="text-xs">Marketing team - 6</p>
-                            <p className="text-xs">Product design - 10</p>
-                        </div> */}
                     </div>
 
                     {/* Profit */}
@@ -121,71 +132,6 @@ export default function Test() {
                     <div className='md:col-span-1 lg:col-span-2 bg-white p-4 rounded-xl shadow'>
                         <Calendar onChange={calendarDate => setCalendarDate(calendarDate)} value={calendarDate} />
                     </div>
-
-
-                    {/* <div className="md:col-span-1 lg:col-span-1 bg-white p-4 rounded-xl shadow">
-                        <h3 className="font-semibold mb-4">Current Project</h3>
-                        <p className="text-sm">Project: <strong>SaaS Finance</strong></p>
-                        <p className="text-xs text-green-500 mb-2">On progress</p>
-                        <p className="text-sm">Manager: Devon Lane</p>
-                        <p className="text-sm">Design Lead: Irma</p>
-                        <p className="text-sm">Team: 6 people</p>
-                        <p className="text-sm">Start: 1 Oct 2023</p>
-                        <p className="text-sm">Due: 30 Oct 2023</p>
-                    </div> */}
-
-                    {/* Schedule */}
-                    {/* <div className="md:col-span-2 lg:col-span-2 bg-white p-4 rounded-xl shadow">
-                        <div className="flex justify-between mb-4">
-                            <h3 className="font-semibold">Employee Schedule</h3>
-                            <button className="text-sm bg-purple-600 text-white px-3 py-1 rounded">Add schedule</button>
-                        </div>
-                        <table className="w-full text-left text-sm">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Team</th>
-                                    <th>Period</th>
-                                    <th>Shift</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr className="border-t">
-                                    <td>Courtney Henry</td>
-                                    <td>Server</td>
-                                    <td>Oct 25 - Nov 15</td>
-                                    <td>Night</td>
-                                </tr>
-                                <tr className="border-t">
-                                    <td>Albert Flores</td>
-                                    <td>Programmer</td>
-                                    <td>Oct 25 - Nov 15</td>
-                                    <td>Morning</td>
-                                </tr>
-                                <tr className="border-t">
-                                    <td>Jerome Bell</td>
-                                    <td>Designer</td>
-                                    <td>Oct 25 - Nov 15</td>
-                                    <td>Morning</td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> */}
-
-                    {/* Employee List */}
-                    {/* <div className="md:col-span-1 lg:col-span-1 bg-white p-4 rounded-xl shadow">
-                        <div className="flex justify-between items-center mb-2">
-                            <h3 className="font-semibold">List Employee</h3>
-                            <button className="text-xs text-purple-600">See more</button>
-                        </div>
-                        <ul className="text-sm space-y-2">
-                            <li>Bessie Cooper - Product designer</li>
-                            <li>Guy Hawkins - Product designer</li>
-                            <li>Irma - Design lead</li>
-                            <li>Devon Lane - Project manager</li>
-                            <li>Courtney Henry - Server Engineer</li>
-                        </ul>
-                    </div> */}
                 </div>
 
 
