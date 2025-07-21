@@ -32,7 +32,9 @@ const companySchema = new mongoose.Schema({
     },
 
     address: {
-        type: String
+        type: String,
+        trim: true,
+        lowercase: true,
         // street: String,
         // city: String,
         // state: String,
@@ -72,53 +74,27 @@ const companySchema = new mongoose.Schema({
     //     type: mongoose.Schema.Types.ObjectId,
     //     ref: 'User'
     // }],
-    
+
     departments: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Department'
+        // type: mongoose.Schema.Types.ObjectId,
+        // ref: 'Department'
+        type: String,
     }],
 
     // Status and timestamps
     isActive: {
-        type: Boolean,
-        default: true
+        type: String,
+        default: "pending"
     },
     createdAt: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     },
     updatedAt: {
         type: Date,
-        default: Date.now
+        default: Date.now()
     }
 },
-
-    //     {
-    //         timestamps: true, // Automatically manage createdAt and updatedAt
-    //         toJSON: { virtuals: true },
-    //         toObject: { virtuals: true }
-    //     });
-
-    // // Virtual for employee count
-    // companySchema.virtual('employeeCount', {
-    //     ref: 'User',
-    //     localField: '_id',
-    //     foreignField: 'companyId',
-    //     count: true
-    // });
-
-    // // Indexes for better query performance
-    // companySchema.index({ name: 1 });
-    // companySchema.index({ createdBy: 1 });
-    // companySchema.index({ isActive: 1 });
-
-    // // Middleware to update timestamps
-    // companySchema.pre('save', function (next) {
-    //     this.updatedAt = Date.now();
-    //     next();
-    // }
 );
 
-const Company = mongoose.model('Company', companySchema);
-
-module.exports = Company;
+export const Company = mongoose.model('Company', companySchema);

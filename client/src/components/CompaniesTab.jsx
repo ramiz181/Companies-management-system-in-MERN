@@ -9,11 +9,14 @@ export default function CompaniesTab() {
 
     // State for filters and search
     const [searchTerm, setSearchTerm] = useState('');
+
+
     const [filters, setFilters] = useState({
         status: '',
         industry: '',
         location: ''
     });
+
     const [showFilters, setShowFilters] = useState(false);
     const [selectedCompany, setSelectedCompany] = useState(null);
     const [isEditMode, setIsEditMode] = useState(false);
