@@ -1,99 +1,80 @@
-import mongoose from "mongoose";
+// /models/companySchema.js
+import mongoose from 'mongoose';
 
 const companySchema = new mongoose.Schema({
-    // Basic company information
-    name: {
+
+
+    companyName: {
         type: String,
         required: [true, 'Company name is required'],
         trim: true,
         maxlength: [100, 'Company name cannot exceed 100 characters']
+
+    },
+    companyID: {
+        type: String,
+        required: true,
+        unique: true,
     },
 
-    // Company identification
-    // registrationNumber: {
-    //     type: String,
-    //     unique: true,
-    //     sparse: true,
-    //     trim: true
-    // },
+    departments: [{
+        type: String,
+        required: true
+    }],
 
-    // Contact information
+    ceo: {
+        type: String,
+        required: true,
+    },
+
     email: {
         type: String,
         required: [true, 'Email is required'],
         trim: true,
         lowercase: true,
+        unique: true,
         match: [/\S+@\S+\.\S+/, 'Please enter a valid email address']
     },
 
     phone: {
         type: String,
-        trim: true
+        required: true,
     },
-
-    address: {
-        type: String,
-        trim: true,
-        lowercase: true,
-        // street: String,
-        // city: String,
-        // state: String,
-        // country: String,
-        // postalCode: String
+    location: {
+        city: {
+            type: String,
+            required: true,
+        },
+        country: {
+            type: String,
+            required: true,
+        },
+        streetAddress: {
+            type: String,
+            required: true,
+        },
     },
-
-    // Company settings
-    // timezone: {
-    //     type: String,
-    //     default: 'UTC'
-    // },
-    // workDays: {
-    //     type: [Number], // 0-6 (Sunday-Saturday)
-    //     default: [1, 2, 3, 4, 5] // Monday-Friday by default
-    // },
-    // workStartTime: {
-    //     type: String, // Store as "HH:MM" format
-    //     default: '09:00'
-    // },
-    // workEndTime: {
-    //     type: String,
-    //     default: '17:00'
-    // },
-
-    // References to other collections
-    // createdBy: {
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User',
-    //     required: true
-    // },
-    // admins: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }],
-    // hrUsers: [{
-    //     type: mongoose.Schema.Types.ObjectId,
-    //     ref: 'User'
-    // }],
-
-    departments: [{
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Department'
+    status: {
         type: String,
-    }],
-
-    // Status and timestamps
-    isActive: {
-        type: String,
-        default: "pending"
+        enum: ['Active', 'Inactive', 'Pending'],
+        default: 'Pending',
     },
-    createdAt: {
+    registerDate: {
         type: Date,
-        default: Date.now()
+        default: Date.now,
+    },
+    website: {
+        type: String,
+    },
+    employees: {
+        type: Number,
+        default: 0,
     },
     updatedAt: {
         type: Date,
         default: Date.now()
     }
+
 },
 );
 

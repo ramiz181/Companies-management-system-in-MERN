@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { FiSearch, FiFilter, FiEdit2, FiEye, FiChevronDown, FiX } from 'react-icons/fi';
+import { FiSearch, FiFilter, FiEdit2, FiEye, FiX } from 'react-icons/fi';
 import { companies } from '../Data/Data';
+import { useEffect } from 'react';
 
 
 export default function CompaniesTab() {
@@ -9,6 +10,11 @@ export default function CompaniesTab() {
 
     // State for filters and search
     const [searchTerm, setSearchTerm] = useState('');
+
+    const [companiesData, setCompaniesData] = useState([]);
+
+    const [loadind, setLoading] = useState(true);
+
 
 
     const [filters, setFilters] = useState({
@@ -76,6 +82,36 @@ export default function CompaniesTab() {
         setSelectedCompany(null);
         setIsEditMode(false);
     };
+
+
+
+    // getting companies data from mongoDB
+
+    useEffect(() => {
+
+        const call = async () => {
+            try {
+
+                const res = await fetch('http://localhost:3000/api/getData');
+                const data = await res.json();
+
+                setCompaniesData(data);
+                setLoading(false);
+
+                console.log(companiesData);
+
+
+
+            } catch (error) {
+                console.error(`error fetching companies data on frotnend ${error}`)
+                setLoading(false)
+            }
+        }
+
+        call();
+
+    }, [])
+
 
 
 
@@ -201,21 +237,24 @@ export default function CompaniesTab() {
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Actions</th>
                             </tr>
                         </thead>
+
+
+
                         <tbody className="bg-white divide-y divide-gray-200">
-                            {filteredCompanies.length > 0 ? (
-                                filteredCompanies.map((company) => (
-                                    <tr key={company.id} className="hover:bg-gray-50">
+                            {companiesData.length > 0 ? (
+                                companiesData.map((company) => (
+                                    <tr key={company._id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="font-medium text-gray-900">{company.name}</div>
-                                            <div className="text-sm text-gray-500">
+                                            <div className="font-medium text-gray-900">{company._id}</div>
+                                            {/* <div className="text-sm text-gray-500">
                                                 {Object.entries(company.contacts).map(([role, name]) => (
                                                     <div key={role}>{role}: {name}</div>
                                                 ))}
-                                            </div>
+                                            </div> */}
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.id}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company._id}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.industry}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.location}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.location?.city}, {company.location?.country}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <span className={getStatusBadge(company.status)}>
                                                 {company.status}

@@ -2,8 +2,8 @@ import express from 'express';
 import { dbConnected } from './config/DB.js';
 import dotenv from 'dotenv';
 
-
 import router from './routes/applicationRoutes.js';
+
 
 dotenv.config();
 
