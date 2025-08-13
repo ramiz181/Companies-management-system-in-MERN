@@ -89,7 +89,7 @@ export default function CompaniesTab() {
 
     useEffect(() => {
 
-        const call = async () => {
+        const fetchCompanies = async () => {
             try {
 
                 const res = await fetch('http://localhost:3000/api/getData');
@@ -98,7 +98,7 @@ export default function CompaniesTab() {
                 setCompaniesData(data);
                 setLoading(false);
 
-                console.log(companiesData);
+                console.log(data);
 
 
 
@@ -108,7 +108,7 @@ export default function CompaniesTab() {
             }
         }
 
-        call();
+        fetchCompanies();
 
     }, [])
 
@@ -245,23 +245,25 @@ export default function CompaniesTab() {
                                 companiesData.map((company) => (
                                     <tr key={company._id} className="hover:bg-gray-50">
                                         <td className="px-6 py-4 whitespace-nowrap">
-                                            <div className="font-medium text-gray-900">{company._id}</div>
-                                            {/* <div className="text-sm text-gray-500">
-                                                {Object.entries(company.contacts).map(([role, name]) => (
-                                                    <div key={role}>{role}: {name}</div>
-                                                ))}
-                                            </div> */}
+                                            <div className="font-medium text-gray-900">{company.companyName}</div>
+                                            <div className="text-sm text-gray-500">
+                                                <div >CEO: {company.ceo}</div>
+                                                {/* {Object.entries(company.contacts).map(([role, name]) => (
+                                                ))} */}
+                                            </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company._id}</td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.industry}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.companyID}</td>
+                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.departments}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.location?.city}, {company.location?.country}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
+
                                             <span className={getStatusBadge(company.status)}>
                                                 {company.status}
                                             </span>
+
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                            {new Date(company.registrationDate).toLocaleDateString()}
+                                            {new Date(company.registerDate).toLocaleDateString()}
                                         </td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                             <button
@@ -400,19 +402,19 @@ export default function CompaniesTab() {
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Company Name</h3>
-                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.name}</p>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.companyName}</p>
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Company ID</h3>
-                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.id}</p>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.companyID}</p>
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Industry</h3>
-                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.industry}</p>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.departments}</p>
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Location</h3>
-                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.location}</p>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.location?.city}, {selectedCompany5.location?.country}</p>
                                         </div>
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Status</h3>
@@ -425,19 +427,19 @@ export default function CompaniesTab() {
                                         <div>
                                             <h3 className="text-sm font-medium text-gray-500">Registration Date</h3>
                                             <p className="mt-1 text-sm text-gray-900">
-                                                {new Date(selectedCompany.registrationDate).toLocaleDateString()}
+                                                {new Date(selectedCompany.registerDate).toLocaleDateString()}
                                             </p>
                                         </div>
                                     </div>
 
                                     <h3 className="font-medium text-lg mb-3">Key Contacts</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                        {Object.entries(selectedCompany.contacts).map(([role, name]) => (
-                                            <div key={role}>
-                                                <h3 className="text-sm font-medium text-gray-500">{role}</h3>
-                                                <p className="mt-1 text-sm text-gray-900">{name}</p>
-                                            </div>
-                                        ))}
+                                        <div>
+                                            <h3 className="text-sm font-medium text-gray-500">CEO</h3>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.ceo}</p>
+                                        </div>
+                                        {/* {Object.entries(selectedCompany.contacts).map(([role, name]) => (
+                                        ))} */}
                                     </div>
 
                                     <div className="flex justify-end pt-4 border-t">

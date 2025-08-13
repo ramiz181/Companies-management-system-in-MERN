@@ -1,13 +1,13 @@
 import express from 'express';
 import { dbConnected } from './config/DB.js';
 import dotenv from 'dotenv';
-
 import router from './routes/applicationRoutes.js';
+import cors from 'cors'
+
 
 
 dotenv.config();
 
-import cors from 'cors'
 
 const app = express();
 
@@ -25,4 +25,4 @@ dbConnected();
 app.use('/api', router)
 
 
-app.listen(PORT, () => console.log(`Server running ${PORT}`));
+app.listen(PORT, () => console.log(`Server running on Port ${PORT}`));
