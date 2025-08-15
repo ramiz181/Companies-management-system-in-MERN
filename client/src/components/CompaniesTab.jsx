@@ -6,17 +6,11 @@ import { useEffect } from 'react';
 
 export default function CompaniesTab() {
     // Sample data
-
-
     // State for filters and search
+
     const [searchTerm, setSearchTerm] = useState('');
-
     const [companiesData, setCompaniesData] = useState([]);
-
     const [loadind, setLoading] = useState(true);
-
-
-
     const [filters, setFilters] = useState({
         status: '',
         industry: '',
@@ -98,9 +92,7 @@ export default function CompaniesTab() {
                 setCompaniesData(data);
                 setLoading(false);
 
-                console.log(data);
-
-
+                // console.log(data);
 
             } catch (error) {
                 console.error(`error fetching companies data on frotnend ${error}`)
@@ -112,9 +104,23 @@ export default function CompaniesTab() {
 
     }, [])
 
+    const handleUpdateData = async (dataID) => {
 
+        try {
 
+            const response = await fetch('http://localhost:3000/api/updateData/:id', {
+                method: 'PUT',
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify(response)
+            })
 
+        } catch (error) {
+
+        }
+
+    }
 
     return (
 
@@ -229,7 +235,7 @@ export default function CompaniesTab() {
                         <thead className="bg-gray-50">
                             <tr>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
-                                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th>
+                                {/* <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID</th> */}
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Industry</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Location</th>
                                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
@@ -247,12 +253,14 @@ export default function CompaniesTab() {
                                         <td className="px-6 py-4 whitespace-nowrap">
                                             <div className="font-medium text-gray-900">{company.companyName}</div>
                                             <div className="text-sm text-gray-500">
+                                                <div >ID: {company.companyID}</div>
                                                 <div >CEO: {company.ceo}</div>
+                                                <div >Created: {new Date(company.registerDate).toLocaleDateString()}</div>
                                                 {/* {Object.entries(company.contacts).map(([role, name]) => (
                                                 ))} */}
                                             </div>
                                         </td>
-                                        <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.companyID}</td>
+                                        {/* <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.companyID}</td> */}
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.departments}</td>
                                         <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{company.location?.city}, {company.location?.country}</td>
                                         <td className="px-6 py-4 whitespace-nowrap">
@@ -296,6 +304,8 @@ export default function CompaniesTab() {
                 </div>
             </div>
 
+
+
             {/* Company Details Modal */}
             {selectedCompany && (
                 <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
@@ -317,7 +327,7 @@ export default function CompaniesTab() {
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>
                                             <input
                                                 type="text"
-                                                defaultValue={selectedCompany.name}
+                                                defaultValue={selectedCompany.companyName}
                                                 className="w-full border border-gray-300 rounded-md p-2"
                                             />
                                         </div>
@@ -325,24 +335,40 @@ export default function CompaniesTab() {
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Company ID</label>
                                             <input
                                                 type="text"
-                                                defaultValue={selectedCompany.id}
+                                                defaultValue={selectedCompany.companyID}
                                                 className="w-full border border-gray-300 rounded-md p-2"
                                                 disabled
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Employees</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.employees}
+                                                className="w-full border border-gray-300 rounded-md p-2"
                                             />
                                         </div>
                                         <div>
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Industry</label>
                                             <input
                                                 type="text"
-                                                defaultValue={selectedCompany.industry}
+                                                defaultValue={selectedCompany.departments}
                                                 className="w-full border border-gray-300 rounded-md p-2"
                                             />
                                         </div>
                                         <div>
-                                            <label className="block text-sm font-medium text-gray-700 mb-1">Location</label>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">City</label>
                                             <input
                                                 type="text"
-                                                defaultValue={selectedCompany.location}
+                                                defaultValue={selectedCompany.location?.city}
+                                                className="w-full border border-gray-300 rounded-md p-2"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Country</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.location?.country}
                                                 className="w-full border border-gray-300 rounded-md p-2"
                                             />
                                         </div>
@@ -361,7 +387,7 @@ export default function CompaniesTab() {
                                             <label className="block text-sm font-medium text-gray-700 mb-1">Registration Date</label>
                                             <input
                                                 type="date"
-                                                defaultValue={selectedCompany.registrationDate}
+                                                defaultValue={selectedCompany.registerDate}
                                                 className="w-full border border-gray-300 rounded-md p-2"
                                             />
                                         </div>
@@ -369,7 +395,40 @@ export default function CompaniesTab() {
 
                                     <h3 className="font-medium text-lg mb-3">Key Contacts</h3>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
-                                        {Object.entries(selectedCompany.contacts).map(([role, name]) => (
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">CEO</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.ceo}
+                                                className="w-full border border-gray-300 rounded-md p-2"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Website</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.website}
+                                                className="w-full border border-gray-300 rounded-md p-2"
+                                            />
+                                        </div>
+
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Email</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.email}
+                                                className="w-full border border-gray-300 rounded-md p-2"
+                                            />
+                                        </div>
+                                        <div>
+                                            <label className="block text-sm font-medium text-gray-700 mb-1">Phone</label>
+                                            <input
+                                                type="text"
+                                                defaultValue={selectedCompany.phone}
+                                                className="w-full border border-gray-300 rounded-md p-2"
+                                            />
+                                        </div>
+                                        {/* {Object.entries(selectedCompany.contacts).map(([role, name]) => (
                                             <div key={role}>
                                                 <label className="block text-sm font-medium text-gray-700 mb-1">{role}</label>
                                                 <input
@@ -378,7 +437,7 @@ export default function CompaniesTab() {
                                                     className="w-full border border-gray-300 rounded-md p-2"
                                                 />
                                             </div>
-                                        ))}
+                                        ))} */}
                                     </div>
 
                                     <div className="flex justify-end gap-3 pt-4 border-t">
@@ -401,23 +460,23 @@ export default function CompaniesTab() {
                                 <div>
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Company Name</h3>
+                                            <h3 className="text-md font-medium text-gray-500">Company Name</h3>
                                             <p className="mt-1 text-sm text-gray-900">{selectedCompany.companyName}</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Company ID</h3>
+                                            <h3 className="text-md font-medium text-gray-500">Company ID</h3>
                                             <p className="mt-1 text-sm text-gray-900">{selectedCompany.companyID}</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Industry</h3>
+                                            <h3 className="text-md font-medium text-gray-500">Industry</h3>
                                             <p className="mt-1 text-sm text-gray-900">{selectedCompany.departments}</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Location</h3>
-                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.location?.city}, {selectedCompany5.location?.country}</p>
+                                            <h3 className="text-md font-medium text-gray-500">Location</h3>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.location?.city}, {selectedCompany.location?.country}</p>
                                         </div>
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Status</h3>
+                                            <h3 className="text-md font-medium text-gray-500">Status</h3>
                                             <p className="mt-1">
                                                 <span className={getStatusBadge(selectedCompany.status)}>
                                                     {selectedCompany.status}
@@ -425,18 +484,32 @@ export default function CompaniesTab() {
                                             </p>
                                         </div>
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">Registration Date</h3>
+                                            <h3 className="text-md font-medium text-gray-500">Timestamps</h3>
                                             <p className="mt-1 text-sm text-gray-900">
-                                                {new Date(selectedCompany.registerDate).toLocaleDateString()}
+                                                <strong className='font-normal'>Registration date: </strong>{new Date(selectedCompany.registerDate).toLocaleDateString()}
+                                            </p>
+                                            <p className="mt-1 text-sm text-gray-900">
+                                                <strong className='font-normal'>Last Update: </strong>{new Date(selectedCompany.updatedAt).toLocaleDateString()}
                                             </p>
                                         </div>
                                     </div>
 
                                     <h3 className="font-medium text-lg mb-3">Key Contacts</h3>
+
                                     <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+
                                         <div>
-                                            <h3 className="text-sm font-medium text-gray-500">CEO</h3>
+                                            <h3 className="text-md font-medium text-gray-500">CEO</h3>
                                             <p className="mt-1 text-sm text-gray-900">{selectedCompany.ceo}</p>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-md font-medium text-gray-500">Website</h3>
+                                            <p className="mt-1 text-sm text-gray-900">{selectedCompany.website}</p>
+                                        </div>
+                                        <div>
+                                            <h3 className="text-md font-medium text-gray-500">Admin</h3>
+                                            <p className="mt-1 text-sm text-gray-900"><strong className='font-bold text-gray-600'>Email: </strong>{selectedCompany.email}</p>
+                                            <p className="mt-1 text-sm text-gray-900"><strong className='font-bold text-gray-600'>Phone: </strong>{selectedCompany.phone}</p>
                                         </div>
                                         {/* {Object.entries(selectedCompany.contacts).map(([role, name]) => (
                                         ))} */}
