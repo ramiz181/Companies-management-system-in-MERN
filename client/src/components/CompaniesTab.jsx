@@ -81,28 +81,23 @@ export default function CompaniesTab() {
 
     // getting companies data from mongoDB
 
-    useEffect(() => {
+    const API_URL = import.meta.env.VITE_BACKEND_URL;
 
+    useEffect(() => {
         const fetchCompanies = async () => {
             try {
-
-                const res = await fetch('http://localhost:3000/api/getData');
+                const res = await fetch(`${API_URL}/api/getData`);
                 const data = await res.json();
-
                 setCompaniesData(data);
-                setLoading(false);
-
-                // console.log(data);
-
             } catch (error) {
-                console.error(`error fetching companies data on frotnend ${error}`)
-                setLoading(false)
+                console.error("Error fetching companies:", error);
+            } finally {
+                setLoading(false);
             }
-        }
-
+        };
         fetchCompanies();
+    }, []);
 
-    }, [])
 
     const handleUpdateData = async (dataID) => {
 

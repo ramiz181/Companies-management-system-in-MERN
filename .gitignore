@@ -13,6 +13,7 @@ node_modules
 # client\src\GPT-code
 GPT_code
 
+client/.env
 server/.env
 dist
 dist-ssr
