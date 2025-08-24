@@ -6,6 +6,9 @@ import CompanyOverview from './pages/CompanyOverview';
 import Home from './pages/Home';
 
 const App = () => {
+
+  
+
   return (
     <div className="flex min-h-screen bg-gray-50 text-gray-900">
 

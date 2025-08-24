@@ -33,8 +33,10 @@ export default function AddCompanyModal({ isOpen, setIsOpen }) {
 
         e.preventDefault();
 
+        const API_URL = import.meta.env.VITE_BACKEND_URL;
+
         try {
-            const response = await fetch('http://localhost:3000/api/addCompany', {
+            const response = await fetch(`${API_URL}/api/addCompany`, {
 
                 method: 'POST',
                 headers: {

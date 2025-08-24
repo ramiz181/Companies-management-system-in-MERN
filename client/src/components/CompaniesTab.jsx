@@ -103,7 +103,7 @@ export default function CompaniesTab() {
 
         try {
 
-            const response = await fetch('http://localhost:3000/api/updateData/:id', {
+            const response = await fetch(`${API_URL}/api/updateData/:id`, {
                 method: 'PUT',
                 headers: {
                     'Content-type': 'application/json'
