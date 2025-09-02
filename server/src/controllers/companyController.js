@@ -19,11 +19,10 @@ export const updateCompanies = async (req, res) => {
 
     try {
         const { id } = req.params
-        const { companyName } = req.body
 
         const companyData = await Company.findByIdAndUpdate(
             id,
-            { companyName },
+            req.body,
             { new: true }
         )
 
@@ -31,8 +30,8 @@ export const updateCompanies = async (req, res) => {
             res.status(400).json({ message: "Company not found" })
         }
 
-        console.log("testing update API");
-        res.json(updateCompanies)
+        // console.log("testing update API");
+        res.json(companyData || [])
 
     } catch (error) {
         console.log(error);

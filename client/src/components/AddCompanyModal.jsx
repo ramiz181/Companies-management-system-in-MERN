@@ -16,7 +16,7 @@ export default function AddCompanyModal({ isOpen, setIsOpen }) {
             country: "",
             streetAddress: ""
         },
-        status: "",
+        status: "Pending",
         website: "",
         employees: "",
     });
@@ -156,16 +156,19 @@ export default function AddCompanyModal({ isOpen, setIsOpen }) {
                         ))}
 
                         {/* Status Select */}
-                        <select
-                            name="status"
-                            value={formData.status}
-                            onChange={(e) => setFormData({ ...formData, status: e.target.value })}
-                            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
-                        >
-                            <option value="Active">Active</option>
-                            <option value="Inactive">Inactive</option>
-                            <option value="Pending">Pending</option>
-                        </select>
+                        <div>
+                            <label className='block text-sm font-medium text-gray-700 mb-1'>Status</label>
+                            <select
+                                name="status"
+                                value={formData.status}
+                                onChange={(e) => setFormData({ ...formData, status: e.target.value })}
+                                className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-blue-400"
+                            >
+                                <option value="Pending">Pending</option>
+                                <option value="Active">Active</option>
+                                <option value="Inactive">Inactive</option>
+                            </select>
+                        </div>
 
                         <button
                             type="submit"
