@@ -33,6 +33,4 @@ const createCompanies = async (req, res) => {
     }
 };
 
-
-
 export default createCompanies;
