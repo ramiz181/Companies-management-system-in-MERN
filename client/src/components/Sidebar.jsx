@@ -1,42 +1,68 @@
-import { Link, useLocation } from 'react-router-dom'
-import { BarChart4 } from 'lucide-react';
+import { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import {
+    Users, FileBarChart, Settings, ClipboardList, HelpCircle,
+    Building2, LucideLayoutDashboard,
+} from 'lucide-react';
+
+import symbol from './../assets/img/dashboards/R-symbol.png'
 
 export default function Sidebar() {
-
     const location = useLocation();
+    const [isOpen, setIsOpen] = useState(true);
 
     const tabLinks = [
-        { text: 'Overview', link: '/' },
-        { text: 'Comapnies ', link: '/company-overview' },
-
-    ]
+        { text: 'Overview', link: '/', icon: LucideLayoutDashboard },
+        { text: 'Companies', link: '/company-overview', icon: Building2 },
+        { text: 'Users (Global)', link: '#', icon: Users },
+        { text: 'Reports', link: '#', icon: FileBarChart },
+        { text: 'Settings', link: '#', icon: Settings },
+        { text: 'Logs & Audit', link: '#', icon: ClipboardList },
+        { text: 'Help & Support', link: '#', icon: HelpCircle },
+    ];
 
     return (
-        <div>
-            <aside className="w-64 bg-white shadow-md p-5 sticky top-0 h-screen">
-                <h1 className="text-2xl font-bold text-blue-600 mb-10">Dashboard</h1>
+        <aside
+            onMouseOver={() => setIsOpen(true)}
+            onMouseLeave={() => setIsOpen(false)}
+            className={`bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 
+        ${isOpen ? 'w-56' : 'w-[60px]'}`}
+        >
+            {/* Sidebar Header */}
+            <div className="flex items-center justify-center px-4 mb-10 relative">
+                <img src={symbol} width="32px"/>
+                {isOpen && <h1 className="text-2xl font-bold text-black">
+                    RAMNITO</h1>}
 
-                <nav className="flex flex-col items-start justify start gap-4">
+            </div>
 
-                    {tabLinks.map((item, idx) => {
+            {/* Navigation Links */}
+            <nav className="flex flex-col items-start justify-start gap-2">
+                {tabLinks.map((item, idx) => {
+                    const isActive = location.pathname === item.link;
+                    const Icon = item.icon;
+                    return (
+                        <Link to={item.link} key={idx} className="w-full flex items-center">
+                            <div
+                                className={`w-[6px] h-10 rounded-r-3xl transition-all 
+                  ${isActive ? 'bg-orange-600 border-l-4 border-red-500' : ''}`}
+                            />
+                            <div
+                                className={`flex items-center hover:bg-orange-100 gap-2 px-4 py-2 w-full transition-all duration-200 
+                  ${isActive ? 'text-black font-medium' : 'text-gray-400 font-normal'}`}
+                            >
+                                <Icon className={`w-5 h-5 ${isActive ? 'text-orange-500' : ''}`} />
+                                {isOpen && <span>{item.text}</span>}
+                            </div>
+                        </Link>
+                    );
+                })}
+            </nav>
 
-
-                        const isActive = location.pathname === item.link
-
-                        return (
-                            < Link to={item.link} key={idx} className='w-full'>
-                                <div className={`flex items-center gap-2 px-3 py-2 rounded-lg w-full ${isActive ? 'bg-blue-600 text-white' : 'text-gray-700 hover:bg-blue-100'}`} >
-
-                                    <BarChart4 />
-                                    <span>{item.text}</span>
-                                </div>
-                            </Link>
-                        )
-                    })}
-                </nav>
-
-                <button className="text-red-500 mt-10">Logout</button>
-            </aside>
-        </div >
-    )
+            {/* Logout Button */}
+            <div className="mt-10 px-4">
+                <button className="text-red-500">{isOpen ? 'Logout' : <span className="text-xl">⏻</span>}</button>
+            </div>
+        </aside>
+    );
 }

@@ -6,7 +6,7 @@ import OverviewTab from '../components/OverviewTab'
 export default function Home() {
     return (
         <div>
-            {/* <Sidebar /> */}
+            <Sidebar />
             <CompaniesHeader />
             <OverviewTab />
         </div>

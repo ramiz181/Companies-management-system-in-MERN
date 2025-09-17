@@ -10,8 +10,8 @@ import ProtectedRoute from './utils/ProtectedRoute';
 const App = () => {
 
   return (
-    <div className="flex justify-center items-center min-h-screen bg-gray-50 text-gray-900">
-      <Sidebar />
+    <div className="">
+      {/* <Sidebar /> */}
       <Routes>
 
         <Route path='/' element={

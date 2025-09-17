@@ -7,8 +7,8 @@ import Sidebar from '../components/Sidebar'
 export default function CompanyOverview() {
     return (
         <div>
+            <Sidebar />
             <CompaniesHeader />
-            {/* <Sidebar /> */}
             {/* <AddCompanyModal /> */}
             <CompaniesTab />
         </div>
