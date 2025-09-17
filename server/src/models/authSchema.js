@@ -39,7 +39,7 @@ const adminLoginSchema = new mongoose.Schema({
 
 
 adminLoginSchema.methods.matchPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.hash)
+    return await bcrypt.compare(enteredPassword, this.password)
 }
 
 export const Admin = mongoose.model('Admin', adminLoginSchema);

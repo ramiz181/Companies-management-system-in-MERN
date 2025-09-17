@@ -78,7 +78,11 @@ export default function CompaniesTab() {
     useEffect(() => {
         const fetchCompanies = async () => {
             try {
-                const res = await fetch(`${API_URL}/api/getData`);
+                const res = await fetch(`${API_URL}/api/getData`, {
+                    headers: {
+                        'Authorization': `Bearer ${localStorage.getItem('token')}`
+                    }
+                });
                 const data = await res.json();
                 setCompaniesData(data);
             } catch (error) {
@@ -291,7 +295,7 @@ export default function CompaniesTab() {
                         <tbody className="bg-white divide-y divide-gray-200">
                             {companiesData.length > 0 ? (
                                 companiesData.map((company) => (
-                                    
+
                                     <tr key={company._id} className="hover:bg-gray-50">
                                         <td className="px-3 md:px-6 py-2 md:py-4 whitespace-nowrap text-xs md:text-sm">
                                             <div className="font-medium text-gray-900">
@@ -659,7 +663,27 @@ export default function CompaniesTab() {
 
                                     <div className="flex justify-end pt-4 border-t">
                                         <button
-                                            onClick={() => setIsEditMode(true)}
+                                            onClick={() => {
+                                                setIsEditMode(true);
+                                                setSelectedCompany(company);
+                                                setFormData({
+                                                    companyName: company.companyName,
+                                                    companyID: company.companyID,
+                                                    employees: company.employees,
+                                                    departments: company.departments,
+                                                    location: {
+                                                        city: company.location?.city || "",
+                                                        country: company.location?.country || "",
+                                                    },
+                                                    status: company.status,
+                                                    registerDate: company.registerDate,
+                                                    ceo: company.ceo,
+                                                    website: company.website,
+                                                    email: company.email,
+                                                    phone: company.phone,
+                                                });
+                                            }}
+
                                             className="px-4 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700 flex items-center gap-2"
                                         >
                                             <FiEdit2 /> Edit Company

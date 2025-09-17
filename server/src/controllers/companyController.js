@@ -6,7 +6,6 @@ const companiesData = async (req, res) => {
     try {
 
         const companies = await Company.find()
-
         res.status(200).json(companies)
 
 

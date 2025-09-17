@@ -7,7 +7,7 @@ export default function Sidebar() {
 
     const tabLinks = [
         { text: 'Overview', link: '/' },
-        { text: 'Comapnies ', link: '/comapny-overview' },
+        { text: 'Comapnies ', link: '/company-overview' },
 
     ]
 

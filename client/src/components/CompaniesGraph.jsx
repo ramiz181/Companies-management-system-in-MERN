@@ -8,6 +8,7 @@ import {
     Title,
     Tooltip,
     Legend,
+    Filler
 } from 'chart.js';
 
 import { companiesGraphData, options } from '../Data/Data';
@@ -19,7 +20,8 @@ ChartJS.register(
     LineElement,
     Title,
     Tooltip,
-    Legend
+    Legend,
+    Filler
 )
 
 export default function CompaniesGraph() {
