@@ -11,6 +11,8 @@ import {
     Filler
 } from 'chart.js';
 
+import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, AreaChart, Area } from 'recharts';
+
 import { companiesGraphData, options } from '../Data/Data';
 
 ChartJS.register(

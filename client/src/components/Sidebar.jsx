@@ -1,15 +1,9 @@
-import { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import {
-    Users, FileBarChart, Settings, ClipboardList, HelpCircle,
-    Building2, LucideLayoutDashboard,
-} from 'lucide-react';
-
+import { Users, FileBarChart, Settings, ClipboardList, HelpCircle, Building2, LucideLayoutDashboard, PanelLeftIcon } from 'lucide-react';
 import symbol from './../assets/img/dashboards/R-symbol.png'
 
-export default function Sidebar() {
+export default function Sidebar(props) {
     const location = useLocation();
-    const [isOpen, setIsOpen] = useState(true);
 
     const tabLinks = [
         { text: 'Overview', link: '/', icon: LucideLayoutDashboard },
@@ -23,15 +17,19 @@ export default function Sidebar() {
 
     return (
         <aside
-            onMouseOver={() => setIsOpen(true)}
-            onMouseLeave={() => setIsOpen(false)}
+            // onMouseOver={() => props.setIsOpen(true)}
+            // onMouseLeave={() => props.setIsOpen(false)}
             className={`bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 
-        ${isOpen ? 'w-56' : 'w-[60px]'}`}
+            ${props.widthState ? 'w-56' : 'w-[60px]'}
+        `}
         >
+            {/* <div className='absolute top-5 left-[40px] sm:top-4 md:top-[55px] bg-white shadow-md p-[5px] rounded border border-black-100'>
+                <PanelLeftIcon className='w-4 h-4' />
+            </div> */}
             {/* Sidebar Header */}
             <div className="flex items-center justify-center px-4 mb-10 relative">
-                <img src={symbol} width="32px"/>
-                {isOpen && <h1 className="text-2xl font-bold text-black">
+                <img src={symbol} width="32px" />
+                {props.widthState && <h1 className="text-2xl font-bold text-black">
                     RAMNITO</h1>}
 
             </div>
@@ -48,11 +46,11 @@ export default function Sidebar() {
                   ${isActive ? 'bg-orange-600 border-l-4 border-red-500' : ''}`}
                             />
                             <div
-                                className={`flex items-center hover:bg-orange-100 gap-2 px-4 py-2 w-full transition-all duration-200 
+                                className={`flex items-center hover:text-black gap-2 px-4 py-2 w-full  
                   ${isActive ? 'text-black font-medium' : 'text-gray-400 font-normal'}`}
                             >
                                 <Icon className={`w-5 h-5 ${isActive ? 'text-orange-500' : ''}`} />
-                                {isOpen && <span>{item.text}</span>}
+                                {props.widthState && <span>{item.text}</span>}
                             </div>
                         </Link>
                     );
@@ -61,7 +59,7 @@ export default function Sidebar() {
 
             {/* Logout Button */}
             <div className="mt-10 px-4">
-                <button className="text-red-500">{isOpen ? 'Logout' : <span className="text-xl">⏻</span>}</button>
+                <button className="text-red-500">{props.widthState ? 'Logout' : <span className="text-xl">⏻</span>}</button>
             </div>
         </aside>
     );

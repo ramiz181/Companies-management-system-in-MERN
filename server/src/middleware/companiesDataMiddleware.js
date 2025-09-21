@@ -10,8 +10,7 @@ const protect = async (req, res, next) => {
 
             token = req.headers.authorization.split(" ")[1];
             const tokenDecode = jwt.verify(token, process.env.JSON_SECRET_KEY)
-            console.log("Line 13 middleware : ", tokenDecode);
-
+            // console.log("Line 13 middleware : ", tokenDecode);
             next()
 
         } catch (error) {

@@ -2,27 +2,27 @@
 import Sidebar from './components/Sidebar';
 
 import { Routes, Route } from "react-router-dom";
-import CompanyOverview from './pages/CompanyPage';
-import Home from './pages/OverviewPage';
+import CompanyPage from './pages/CompanyPage';
+import OverviewPage from './pages/OverviewPage';
 import LoginPage from './pages/LoginPage';
 import ProtectedRoute from './utils/ProtectedRoute';
 
 const App = () => {
 
   return (
-    <div className="">
+    <div className="max-w-screen-xl m-auto">
       {/* <Sidebar /> */}
       <Routes>
 
         <Route path='/' element={
           <ProtectedRoute>
-            <Home />
+            <OverviewPage />
           </ProtectedRoute>
         } />
 
         <Route path='/company-overview' element={
           <ProtectedRoute>
-            <CompanyOverview />
+            <CompanyPage />
           </ProtectedRoute>
         } />
 
