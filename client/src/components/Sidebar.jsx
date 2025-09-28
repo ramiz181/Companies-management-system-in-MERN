@@ -19,13 +19,8 @@ export default function Sidebar(props) {
         <aside
             // onMouseOver={() => props.setIsOpen(true)}
             // onMouseLeave={() => props.setIsOpen(false)}
-            className={`bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 
-            ${props.widthState ? 'w-56' : 'w-[60px]'}
-        `}
-        >
-            {/* <div className='absolute top-5 left-[40px] sm:top-4 md:top-[55px] bg-white shadow-md p-[5px] rounded border border-black-100'>
-                <PanelLeftIcon className='w-4 h-4' />
-            </div> */}
+            className={`overflow-hidden bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 ${props.widthState ? 'w-56' : 'w-[60px]'}`}>
+
             {/* Sidebar Header */}
             <div className="flex items-center justify-center px-4 mb-10 relative">
                 <img src={symbol} width="32px" />

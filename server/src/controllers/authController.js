@@ -26,7 +26,7 @@ export const adminLogin = async (req, res) => {
                 token: generateToken(admin.email)
             })
         } else {
-            return res.status(401).json({ message: 'invalid credentials' })
+            return res.status(401).json({ message: 'Invalid or missing credentials' })
         }
         // if (!email) return res.status(400).json({ message: "Email not found..." })
         // if (!match) return res.status(400).json({ message: "Invalid Password..." })

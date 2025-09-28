@@ -7,6 +7,7 @@ export default function LoginForm() {
     const navigate = useNavigate();
 
     const [message, setMessage] = useState("");
+    const [messageType, setMessageType] = useState("");
 
     const [formData, setFormData] = useState({
         email: "",
@@ -36,12 +37,21 @@ export default function LoginForm() {
                 localStorage.setItem('token', result.token)
 
                 setMessage(result.message)
-                setFormData({
-                    email: "",
-                    password: ""
-                })
-                
-                navigate('/')
+                setMessageType("success")
+                setTimeout(() => {
+                    navigate('/')
+                }, 1000);
+            }
+            else {
+                const errorResult = await response.json()
+
+                setMessageType("error")
+                setMessage(errorResult.message || "Invalid or missing credentials...")
+
+                setTimeout(() => {
+                    setMessage("");
+                    setMessageType("");
+                }, 3000);
             }
         } catch (error) {
             console.log("error in logging in", error.message);
@@ -115,18 +125,21 @@ export default function LoginForm() {
                     </div>
 
                     {/* Submit button */}
-                    <button type="submit" className="mt-5 mb-3 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg h-12 w-full cursor-pointer">
+                    <button type="submit" className="mt-5 mb-2 bg-gray-900 hover:bg-gray-800 text-white font-medium rounded-lg h-12 w-full cursor-pointer">
                         Sign In
                     </button>
 
                     {/* Signup link */}
                     {message && (
-                        <p className="text-center text-sm mt-3 text-blue-600 font-medium">
-                            {message}
-                        </p>
+                        <div className={`flex justify-center items-center p-2 rounded-lg ${messageType === 'success' ? "text-green-600 bg-green-200 " : " text-red-600 bg-red-200 "
+                            }`} >
+                            <p className="text-center text-sm font-medium">
+                                {message}
+                            </p>
+                        </div>
                     )}
-                </form>
-            </div>
+                </form >
+            </div >
         </>
     );
 };

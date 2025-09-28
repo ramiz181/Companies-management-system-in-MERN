@@ -49,7 +49,7 @@ export default function CompaniesTab() {
             }
         };
         fetchCompanies();
-    }, [companiesData]);
+    }, []);
 
     // form input change handle karna
     const handleChangeData = (e) => {
@@ -81,7 +81,6 @@ export default function CompaniesTab() {
             setCompaniesData((prev) =>
                 prev.map((c) => (c._id === updated._id ? updated : c))
             );
-
             closeModal();
         } catch (err) {
             console.error("Error updating companies:", err);

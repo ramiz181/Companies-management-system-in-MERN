@@ -141,17 +141,14 @@ export default function OverviewTab() {
             <main className="flex-1 p-3 sm:p-4 md:p-6">
 
                 {/* First Row - Cards */}
-                {/* sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-7 */}
-
                 <div className="grid grid-cols-6 gap-4 md:gap-6">
 
                     {/* Newly Added Companies Card */}
-                    {/* sm:col-span-2 xl:col-span-2 */}
                     <div className="col-span-6 md:col-span-3 lg:col-span-2 bg-white p-4 md:p-6 rounded-xl shadow-sm border transition-shadow hover:shadow-md">
                         <div className="mb-4">
                             <div className="flex gap-3 justify-start items-center mb-4">
                                 <UserPlus className="text-blue-600 bg-blue-100 rounded-full p-2 flex-shrink-0" size={34} />
-                                <h3 className="font-semibold text-sm sm:text-base">Newly Added Companies</h3>
+                                <h3 className="font-semibold text-sm sm:text-base">Total Companies Count</h3>
                             </div>
                             <hr className="border-gray-200" />
                         </div>
@@ -175,7 +172,6 @@ export default function OverviewTab() {
                     </div>
 
                     {/* Monthly Payroll Card */}
-                    {/* sm:col-span-2 xl:col-span-2 */}
                     <div className="col-span-6 md:col-span-3 lg:col-span-2 bg-white p-4 md:p-6 rounded-xl shadow-sm border transition-shadow hover:shadow-md">
                         <div className="mb-4">
                             <div className="flex gap-3 justify-start items-center mb-4">
@@ -200,7 +196,6 @@ export default function OverviewTab() {
                     </div>
 
                     {/* Payment Account Card */}
-                    {/* sm:col-span-2 lg:col-span-1 xl:col-span-3 */}
                     <div className="col-span-6 md:col-span-6 lg:col-span-2 bg-white p-4 md:p-6 rounded-xl shadow-sm border transition-shadow hover:shadow-md">
                         <div className="mb-4">
                             <div className="flex flex-col sm:flex-row gap-3 justify-between items-start sm:items-center mb-4">
@@ -234,9 +229,7 @@ export default function OverviewTab() {
                             </p>
                         </div>
                     </div>
-
                 </div>
-
 
                 {/* Second Row - Graph and Calendar */}
                 <div className="grid grid-cols-6 gap-4 md:gap-6 mt-4 md:mt-6">
