@@ -42,10 +42,9 @@ export default function CompaniesTab() {
                 });
                 const data = await res.json();
                 setCompaniesData(data);
+                setLoading(false);
             } catch (error) {
                 console.error("Error fetching companies:", error);
-            } finally {
-                setLoading(false);
             }
         };
         fetchCompanies();

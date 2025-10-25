@@ -1,6 +1,8 @@
 import { Link, useLocation } from 'react-router-dom';
 import { Users, FileBarChart, Settings, ClipboardList, HelpCircle, Building2, LucideLayoutDashboard, PanelLeftIcon } from 'lucide-react';
 import symbol from './../assets/img/dashboards/R-symbol.png'
+import { useContext } from 'react';
+import { ToggleContext } from '../context/toggleContext';
 
 export default function Sidebar(props) {
     const location = useLocation();
@@ -15,18 +17,18 @@ export default function Sidebar(props) {
         { text: 'Help & Support', link: '#', icon: HelpCircle },
     ];
 
+
+    const toggleState = useContext(ToggleContext)
+
     return (
         <aside
-            // onMouseOver={() => props.setIsOpen(true)}
-            // onMouseLeave={() => props.setIsOpen(false)}
-            className={`overflow-hidden bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 ${props.widthState ? 'w-56' : 'w-[60px]'}`}>
+            className={`overflow-hidden bg-white shadow-md py-5 fixed h-screen inset-0 z-10 transition-all duration-300 ${toggleState.isToggle ? 'w-56' : 'w-[60px]'}`}>
 
             {/* Sidebar Header */}
             <div className="flex items-center justify-center px-4 mb-10 relative">
                 <img src={symbol} width="32px" />
-                {props.widthState && <h1 className="text-2xl font-bold text-black">
+                {toggleState.isToggle && <h1 className="text-2xl font-bold text-black">
                     RAMNITO</h1>}
-
             </div>
 
             {/* Navigation Links */}
@@ -45,7 +47,7 @@ export default function Sidebar(props) {
                   ${isActive ? 'text-black font-medium' : 'text-gray-400 font-normal'}`}
                             >
                                 <Icon className={`w-5 h-5 ${isActive ? 'text-orange-500' : ''}`} />
-                                {props.widthState && <span>{item.text}</span>}
+                                {toggleState.isToggle && <span>{item.text}</span>}
                             </div>
                         </Link>
                     );
@@ -54,7 +56,7 @@ export default function Sidebar(props) {
 
             {/* Logout Button */}
             <div className="mt-10 px-4">
-                <button className="text-red-500">{props.widthState ? 'Logout' : <span className="text-xl">⏻</span>}</button>
+                <button className="text-red-500">{toggleState.isToggle ? 'Logout' : <span className="text-xl">⏻</span>}</button>
             </div>
         </aside>
     );

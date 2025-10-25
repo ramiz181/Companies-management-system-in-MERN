@@ -8,7 +8,7 @@ const generateToken = (email) => {
     return jwt.sign(
         { email },
         process.env.JSON_SECRET_KEY,
-        { expiresIn: '1h' }
+        { expiresIn: '30d' }
     )
 }
 export const adminLogin = async (req, res) => {

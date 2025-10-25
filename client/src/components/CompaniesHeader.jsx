@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import AddCompanyModal from './AddCompanyModal'
 import { PanelLeftIcon, X } from 'lucide-react'
+import { ToggleContext } from '../context/toggleContext'
 
 export default function CompaniesHeader(props) {
+
+    const toggleState = useContext(ToggleContext)
 
     const [isOpen, setIsOpen] = useState()
 
@@ -12,7 +15,7 @@ export default function CompaniesHeader(props) {
                 <div className="flex justify-between w-full items-center">
                     <div className='flex items-center gap-2'>
                         <button className='bg-white shadow-sm p-[5px] rounded border border-black-100'
-                            onClick={() => props.toggleSidebar(prev => !prev)}
+                            onClick={() => toggleState.setIsToggle(prev => !prev)}
                         >
                             <PanelLeftIcon className='w-4 h-4' />
                         </button>
